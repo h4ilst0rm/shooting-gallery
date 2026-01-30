@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://bgde0t6lpaih2"]
+
+[ext_resource type="Script" uid="uid://dabt7se0jqi2p" path="res://game.gd" id="1_feb5d"]
+[ext_resource type="Texture2D" uid="uid://drircdhf31mco" path="res://005.png" id="2_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://b4wu5m37dmiai" path="res://038.png" id="3_7jktm"]
+[ext_resource type="Script" uid="uid://b6471kmt3xbj4" path="res://target.gd" id="4_fc0e3"]
+
+[sub_resource type="Environment" id="Environment_28aoi"]
+ambient_light_source = 2
+ambient_light_color = Color(0.3764706, 0, 0, 1)
+ambient_light_energy = 0.22
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jnlp7"]
+albedo_texture = ExtResource("2_fc0e3")
+
+[sub_resource type="QuadMesh" id="QuadMesh_l8v81"]
+size = Vector2(5, 10)
+orientation = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vyht1"]
+albedo_texture = ExtResource("2_fc0e3")
+
+[sub_resource type="QuadMesh" id="QuadMesh_bf3um"]
+size = Vector2(5, 10)
+orientation = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huihk"]
+albedo_texture = ExtResource("3_7jktm")
+
+[sub_resource type="QuadMesh" id="QuadMesh_tw3kd"]
+size = Vector2(10, 4)
+orientation = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gd4vy"]
+albedo_texture = ExtResource("3_7jktm")
+
+[sub_resource type="QuadMesh" id="QuadMesh_qw60f"]
+size = Vector2(10, 4)
+orientation = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eji0w"]
+albedo_texture = ExtResource("3_7jktm")
+
+[sub_resource type="QuadMesh" id="QuadMesh_qwhpj"]
+size = Vector2(5, 3)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pyidc"]
+size = Vector2(32, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fc0e3"]
+font_size = 32
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fc0e3"]
+size = Vector3(1, 1, 0.1)
+
+[sub_resource type="Animation" id="Animation_fc0e3"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_7jktm"]
+resource_name = "move_animation"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 5, 7.5, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -1.0, 0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ryrav"]
+_data = {
+&"RESET": SubResource("Animation_fc0e3"),
+&"move_animation": SubResource("Animation_7jktm")
+}
+
+[sub_resource type="QuadMesh" id="QuadMesh_7jktm"]
+
+[node name="Game" type="Node3D" unique_id=1390001103]
+script = ExtResource("1_feb5d")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1515669240]
+transform = Transform3D(1, 0, 0, 0, 0.98658925, 0.16322264, 0, -0.16322264, 0.98658925, 0, 1.1596463, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1874500412]
+environment = SubResource("Environment_28aoi")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1268626648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8319175, -3.5292406)
+light_size = 0.2
+shadow_enabled = true
+omni_range = 10.0
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=67333478]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045278072, -4.9136133)
+material_override = SubResource("StandardMaterial3D_jnlp7")
+mesh = SubResource("QuadMesh_l8v81")
+
+[node name="Roof" type="MeshInstance3D" parent="." unique_id=941768439]
+transform = Transform3D(1, 0, 0, 0, -0.9917138, -0.12846683, 0, 0.12846683, -0.9917138, 0, 2.4733558, -4.707732)
+material_override = SubResource("StandardMaterial3D_vyht1")
+mesh = SubResource("QuadMesh_bf3um")
+
+[node name="Wall" type="MeshInstance3D" parent="." unique_id=495110568]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3392696, 1.6425152, -4.6387787)
+material_override = SubResource("StandardMaterial3D_huihk")
+mesh = SubResource("QuadMesh_tw3kd")
+
+[node name="Wall2" type="MeshInstance3D" parent="." unique_id=1984278006]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 2.0270288, 1.5350482, -4.778178)
+material_override = SubResource("StandardMaterial3D_gd4vy")
+mesh = SubResource("QuadMesh_qw60f")
+
+[node name="Wall3" type="MeshInstance3D" parent="." unique_id=146301513]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99771464, -8.710089)
+material_override = SubResource("StandardMaterial3D_eji0w")
+mesh = SubResource("QuadMesh_qwhpj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2054207662]
+
+[node name="Crosshair" type="Sprite2D" parent="CanvasLayer" unique_id=116043004]
+unique_name_in_owner = true
+texture = SubResource("PlaceholderTexture2D_pyidc")
+
+[node name="Points" type="Label" parent="CanvasLayer" unique_id=1860501952]
+unique_name_in_owner = true
+offset_left = 13.0
+offset_top = 11.0
+offset_right = 53.0
+offset_bottom = 34.0
+text = "points: xxx"
+label_settings = SubResource("LabelSettings_fc0e3")
+
+[node name="Target" type="Area3D" parent="." unique_id=945540183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59135604, -4.769)
+script = ExtResource("4_fc0e3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Target" unique_id=1373537171]
+shape = SubResource("BoxShape3D_fc0e3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Target" unique_id=906694298]
+libraries/ = SubResource("AnimationLibrary_ryrav")
+autoplay = &"move_animation"
+
+[node name="Mesh" type="MeshInstance3D" parent="Target" unique_id=1134388603]
+mesh = SubResource("QuadMesh_7jktm")
