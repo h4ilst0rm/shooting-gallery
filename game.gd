@@ -6,16 +6,27 @@ extends Node3D
 
 const TARGET = preload("uid://c6tt5ahixx0yr")
 @onready var targets: Node = %Targets
+@onready var path_follow: PathFollow3D = %PathFollow
 
+var running : bool = false
 var points : int = 0
 
 func _ready() -> void:
 	
-	for entry in targets.get_children():
-		var new_target = TARGET.instantiate()
-		entry.add_child(new_target)
+	for path in targets.get_children():
+		for i in range(1, 5):
+			var new_follow = path_follow.duplicate()
+			path.add_child(new_follow)
+			new_follow.progress_ratio = 0.2 * i
+	
+	for path in targets.get_children():
+		for entry in path.get_children():
+			var new_target = TARGET.instantiate()
+			entry.add_child(new_target)
 	
 	pass
+	
+
 
 func _process(delta: float) -> void:
 	
@@ -39,8 +50,19 @@ func _process(delta: float) -> void:
 		if "collider" in raycast_result:
 			points += 1
 			var target = raycast_result["collider"].get_parent().get_parent().get_parent() as Target
+			if running and target:
+				target.hit.emit()
+				
+			target = raycast_result["collider"].get_parent().get_parent().get_parent() as Start
 			if target:
 				target.hit.emit()
+				running = true
 		pass
+	if running:
+		for path in targets.get_children():
+			for entry in path.get_children():
+				(entry as PathFollow3D).progress_ratio += 0.1 * delta
+	
+	
 	
 	pass

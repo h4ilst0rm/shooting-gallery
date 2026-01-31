@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://c6tt5ahixx0yr"]
+[gd_scene format=3 uid="uid://c2b47io4sp4m3"]
 
-[ext_resource type="Texture2D" uid="uid://brqssfr4pjvhs" path="res://035.png" id="1_e1yvt"]
-[ext_resource type="Script" uid="uid://b6471kmt3xbj4" path="res://target.gd" id="1_t2jmu"]
+[ext_resource type="Script" uid="uid://bjl6s5ocihw07" path="res://start.gd" id="1_qn1rc"]
+[ext_resource type="Texture2D" uid="uid://brqssfr4pjvhs" path="res://035.png" id="2_1n0d2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ebp1"]
-albedo_texture = ExtResource("1_e1yvt")
+albedo_texture = ExtResource("2_1n0d2")
 
 [sub_resource type="QuadMesh" id="QuadMesh_7jktm"]
 size = Vector2(0.2, 1)
@@ -69,11 +69,9 @@ _data = {
 &"rise": SubResource("Animation_uqips")
 }
 
-[node name="Target" type="Marker3D" unique_id=931664174 node_paths=PackedStringArray("animation_player", "area3d", "timer")]
-script = ExtResource("1_t2jmu")
+[node name="Start" type="Marker3D" unique_id=931664174 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("1_qn1rc")
 animation_player = NodePath("AnimationPlayer")
-area3d = NodePath("Pivot/Mask/Aread3D")
-timer = NodePath("Timer")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=1539343353]
 
@@ -91,12 +89,11 @@ mesh = SubResource("QuadMesh_uqips")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Mask/Aread3D" unique_id=2062871313]
 shape = SubResource("BoxShape3D_e1yvt")
 
+[node name="Label3D" type="Label3D" parent="Pivot/Mask" unique_id=732214579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.8575144e-05)
+text = "START"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1797411699]
 libraries/ = SubResource("AnimationLibrary_5ebp1")
 
-[node name="Timer" type="Timer" parent="." unique_id=577041768]
-wait_time = 2.0
-one_shot = true
-
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
