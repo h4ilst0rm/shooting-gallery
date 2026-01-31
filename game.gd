@@ -9,6 +9,11 @@ const TARGET = preload("uid://c6tt5ahixx0yr")
 @onready var path_follow: PathFollow3D = %PathFollow
 @onready var spotlights: Node = %Spotlights
 
+const CLOWNASAURUS_REX = preload("uid://cdeyutb0acpg1")
+const PISTOL = preload("uid://bgsk1pkyonm0j")
+const RIFLE = preload("uid://dfrbinifbcbpn")
+const CLOCK_1 = preload("uid://ehxw6tcev3mo")
+
 var running : bool = false
 var points : int = 0
 var time : int = 3 * 60
@@ -49,6 +54,9 @@ func _process(delta: float) -> void:
 		ray_query.to = to
 		ray_query.collide_with_areas = true
 		var raycast_result := space.intersect_ray(ray_query)
+		
+		SoundManager.play(RIFLE)
+		
 		if "collider" in raycast_result:
 			print("hit")
 			var target = raycast_result["collider"].get_parent().get_parent().get_parent() as Target
@@ -61,6 +69,7 @@ func _process(delta: float) -> void:
 			target = raycast_result["collider"].get_parent().get_parent().get_parent() as Start
 			if not running and target:
 				target.hit.emit()
+				SoundManager.play(CLOWNASAURUS_REX)
 				running = true
 				for entry in spotlights.get_children():
 					entry.show()
@@ -77,7 +86,8 @@ func _process(delta: float) -> void:
 	
 	pass
 	
-	
-	
-	
-	
+
+
+func _on_timer_timeout() -> void:
+	SoundManager.play(CLOCK_1)
+	pass # Replace with function body.
