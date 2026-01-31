@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://drircdhf31mco" path="res://005.png" id="2_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://b4wu5m37dmiai" path="res://038.png" id="3_7jktm"]
 [ext_resource type="Script" uid="uid://b6471kmt3xbj4" path="res://target.gd" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://c6tt5ahixx0yr" path="res://target.tscn" id="5_7jktm"]
 
 [sub_resource type="Environment" id="Environment_28aoi"]
 ambient_light_source = 2
@@ -92,7 +93,7 @@ transform = Transform3D(1, 0, 0, 0, 0.98658925, 0.16322264, 0, -0.16322264, 0.98
 environment = SubResource("Environment_28aoi")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1268626648]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8319175, -3.5292406)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8319175, -2.4633355)
 light_size = 0.2
 shadow_enabled = true
 omni_range = 10.0
@@ -150,3 +151,6 @@ autoplay = &"move_animation"
 
 [node name="Mesh" type="MeshInstance3D" parent="Target" unique_id=1134388603]
 mesh = SubResource("QuadMesh_7jktm")
+
+[node name="Target2" parent="." unique_id=931664174 instance=ExtResource("5_7jktm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2424314, 0, -3.3983846)
