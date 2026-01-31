@@ -1,0 +1,1 @@
+class_name Gamemaster extends Marker3D

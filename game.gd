@@ -3,22 +3,28 @@ extends Node3D
 @onready var crosshair: Sprite2D = %Crosshair
 @onready var point_label: Label = %Points
 @onready var camera_3d: Camera3D = $Camera3D
+@onready var time_label: Label = %Time
 
 const TARGET = preload("uid://c6tt5ahixx0yr")
 @onready var targets: Node = %Targets
 @onready var path_follow: PathFollow3D = %PathFollow
 @onready var spotlights: Node = %Spotlights
 
-const CLOWNASAURUS_REX = preload("uid://cdeyutb0acpg1")
-const PISTOL = preload("uid://bgsk1pkyonm0j")
-const RIFLE = preload("uid://dfrbinifbcbpn")
-const CLOCK_1 = preload("uid://ehxw6tcev3mo")
+@onready var game_timer: Timer = %GameTimer
+@onready var shot_timer: Timer = %ShotTimer
 
 var running : bool = false
 var points : int = 0
-var time : int = 3 * 60
+const points_needed : int = 30
+var time : int = 30
+var can_shoot = true
+var loss = false
+@onready var game_over: TextureRect = %GameOver
+@onready var retry: Button = %Retry
 
 func _ready() -> void:
+	
+	SoundManager.init()
 	
 	for path in targets.get_children():
 		for i in range(0, 5):
@@ -32,7 +38,6 @@ func _ready() -> void:
 			entry.add_child(new_target)
 	
 	pass
-	
 
 
 func _process(delta: float) -> void:
@@ -42,6 +47,22 @@ func _process(delta: float) -> void:
 	crosshair.position = mouse_pos
 	
 	point_label.text = "points: " + str(points)
+	time_label.text = "time: " + str(time)
+	
+	if loss:
+		gameover()
+		process_mode = Node.PROCESS_MODE_DISABLED
+		return
+	
+	if running:
+		for entry in targets.get_children()[0].get_children():
+			(entry as PathFollow3D).progress_ratio += 0.1 * delta
+			
+		for entry in targets.get_children()[1].get_children():
+			(entry as PathFollow3D).progress_ratio += -0.2 * delta
+	
+	if not can_shoot:
+		return
 	
 	if Input.is_action_just_pressed("shoot"):
 		print("shot " + str(mouse_pos))
@@ -55,7 +76,9 @@ func _process(delta: float) -> void:
 		ray_query.collide_with_areas = true
 		var raycast_result := space.intersect_ray(ray_query)
 		
-		SoundManager.play(RIFLE)
+		SoundManager.play_shot()
+		can_shoot = false
+		shot_timer.start()
 		
 		if "collider" in raycast_result:
 			print("hit")
@@ -69,25 +92,43 @@ func _process(delta: float) -> void:
 			target = raycast_result["collider"].get_parent().get_parent().get_parent() as Start
 			if not running and target:
 				target.hit.emit()
-				SoundManager.play(CLOWNASAURUS_REX)
+				SoundManager.play_music()
+				game_timer.start()
 				running = true
 				for entry in spotlights.get_children():
 					entry.show()
-		pass
-		
-	if running:
-		for entry in targets.get_children()[0].get_children():
-			(entry as PathFollow3D).progress_ratio += 0.1 * delta
 			
-		for entry in targets.get_children()[1].get_children():
-			(entry as PathFollow3D).progress_ratio += -0.2 * delta
-	
-	
-	
+			target = raycast_result["collider"].get_parent().get_parent() as Gamemaster
+			if target:
+				loss = true
+
+
+func gameover() -> void:
+	SoundManager.stop()
+	var tween = get_tree().create_tween()
+	tween.tween_property(game_over, "modulate:a", 1, 2)
+	tween.play()
+	await tween.finished
+	tween.kill()
+	retry.show()
 	pass
+
+func _on_retry_pressed() -> void:
+	print("press")
+	get_tree().change_scene_to_file("res://game.tscn")
+	pass # Replace with function body.
+
+func _on_game_timer_timeout() -> void:
+	SoundManager.play_clock()
+	time -= 1
 	
+	if time == 0:
+		loss = true
+	
+	pass # Replace with function body.
 
 
-func _on_timer_timeout() -> void:
-	SoundManager.play(CLOCK_1)
+func _on_shot_timer_timeout() -> void:
+	print("shot timeout")
+	can_shoot = true
 	pass # Replace with function body.

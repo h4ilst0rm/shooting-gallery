@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bqkkvvqmp37r1"]
+
+[ext_resource type="Texture2D" uid="uid://d08n61le83sbw" path="res://textures/PXL_20260131_1706056842.jpg" id="1_443q1"]
+[ext_resource type="Script" uid="uid://b5ln1463yjbs6" path="res://gamemaster.gd" id="1_s05jy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eow3j"]
+albedo_texture = ExtResource("1_443q1")
+
+[sub_resource type="QuadMesh" id="QuadMesh_7jktm"]
+size = Vector2(1, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_443q1"]
+size = Vector3(0.7, 2.2, 0.2)
+
+[node name="Gamemaster" type="Marker3D" unique_id=1516307902]
+script = ExtResource("1_s05jy")
+
+[node name="Sprite" type="MeshInstance3D" parent="." unique_id=336784494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_eow3j")
+mesh = SubResource("QuadMesh_7jktm")
+
+[node name="Area3D" type="Area3D" parent="Sprite" unique_id=2115769714]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite/Area3D" unique_id=1971440199]
+shape = SubResource("BoxShape3D_443q1")
