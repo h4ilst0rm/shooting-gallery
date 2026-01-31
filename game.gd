@@ -7,6 +7,7 @@ extends Node3D
 const TARGET = preload("uid://c6tt5ahixx0yr")
 @onready var targets: Node = %Targets
 @onready var path_follow: PathFollow3D = %PathFollow
+@onready var spotlights: Node = %Spotlights
 
 var running : bool = false
 var points : int = 0
@@ -57,6 +58,8 @@ func _process(delta: float) -> void:
 			if target:
 				target.hit.emit()
 				running = true
+				for entry in spotlights.get_children():
+					entry.show()
 		pass
 	if running:
 		for path in targets.get_children():

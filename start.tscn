@@ -69,9 +69,10 @@ _data = {
 &"rise": SubResource("Animation_uqips")
 }
 
-[node name="Start" type="Marker3D" unique_id=931664174 node_paths=PackedStringArray("animation_player")]
+[node name="Start" type="Marker3D" unique_id=931664174 node_paths=PackedStringArray("animation_player", "light")]
 script = ExtResource("1_qn1rc")
 animation_player = NodePath("AnimationPlayer")
+light = NodePath("Light")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=1539343353]
 
@@ -95,5 +96,13 @@ text = "START"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1797411699]
 libraries/ = SubResource("AnimationLibrary_5ebp1")
+
+[node name="Light" type="OmniLight3D" parent="." unique_id=1049423600]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020914316, 1.397414, 0.47140324)
+light_energy = 0.3
+light_size = 0.2
+shadow_enabled = true
+omni_range = 2.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
