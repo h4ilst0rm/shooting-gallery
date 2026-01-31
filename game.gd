@@ -11,6 +11,7 @@ const TARGET = preload("uid://c6tt5ahixx0yr")
 
 var running : bool = false
 var points : int = 0
+var time : int = 3 * 60
 
 func _ready() -> void:
 	
@@ -65,7 +66,7 @@ func _process(delta: float) -> void:
 					entry.show()
 		pass
 		
-	if running and false:
+	if running:
 		for entry in targets.get_children()[0].get_children():
 			(entry as PathFollow3D).progress_ratio += 0.1 * delta
 			
@@ -75,3 +76,8 @@ func _process(delta: float) -> void:
 	
 	
 	pass
+	
+	
+	
+	
+	

@@ -53,6 +53,8 @@ uv1_scale = Vector3(10, 1, 10)
 [sub_resource type="QuadMesh" id="QuadMesh_eow3j"]
 size = Vector2(10, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_7jktm"]
+
 [node name="Game" type="Node3D" unique_id=1390001103]
 script = ExtResource("1_feb5d")
 
@@ -130,6 +132,14 @@ spot_range = 300.0
 
 [node name="PathFollow" type="PathFollow3D" parent="." unique_id=451732111]
 unique_name_in_owner = true
-process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9071345, 0, -3.3399076)
+visible = false
 rotation_mode = 0
+
+[node name="Aread3D2" type="Area3D" parent="." unique_id=1626160085]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.324143, -5.8613644)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Aread3D2" unique_id=1564892462]
+shape = SubResource("BoxShape3D_7jktm")
+
+[node name="Timer" type="Timer" parent="." unique_id=560350741]
