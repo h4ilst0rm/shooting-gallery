@@ -4,7 +4,18 @@ extends Node3D
 @onready var point_label: Label = %Points
 @onready var camera_3d: Camera3D = $Camera3D
 
+const TARGET = preload("uid://c6tt5ahixx0yr")
+@onready var targets: Node = %Targets
+
 var points : int = 0
+
+func _ready() -> void:
+	
+	for entry in targets.get_children():
+		var new_target = TARGET.instantiate()
+		entry.add_child(new_target)
+	
+	pass
 
 func _process(delta: float) -> void:
 	
@@ -25,9 +36,11 @@ func _process(delta: float) -> void:
 		ray_query.to = to
 		ray_query.collide_with_areas = true
 		var raycast_result := space.intersect_ray(ray_query)
-		if "collider_id" in raycast_result:
-			print("hit " + str(raycast_result["collider_id"]))
+		if "collider" in raycast_result:
 			points += 1
+			var target = raycast_result["collider"].get_parent().get_parent().get_parent() as Target
+			if target:
+				target.hit.emit()
 		pass
 	
 	pass
