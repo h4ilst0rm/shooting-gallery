@@ -9,7 +9,12 @@ albedo_texture = ExtResource("1_e1yvt")
 [sub_resource type="QuadMesh" id="QuadMesh_7jktm"]
 size = Vector2(0.2, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1yvt"]
+resource_local_to_scene = true
+
 [sub_resource type="QuadMesh" id="QuadMesh_uqips"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_e1yvt")
 size = Vector2(0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e1yvt"]
@@ -69,10 +74,9 @@ _data = {
 &"rise": SubResource("Animation_uqips")
 }
 
-[node name="Target" type="Marker3D" unique_id=931664174 node_paths=PackedStringArray("animation_player", "area3d", "timer")]
+[node name="Target" type="Marker3D" unique_id=931664174 node_paths=PackedStringArray("animation_player", "timer")]
 script = ExtResource("1_t2jmu")
 animation_player = NodePath("AnimationPlayer")
-area3d = NodePath("Pivot/Mask/Aread3D")
 timer = NodePath("Timer")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=1539343353]
@@ -83,10 +87,11 @@ material_override = SubResource("StandardMaterial3D_5ebp1")
 mesh = SubResource("QuadMesh_7jktm")
 
 [node name="Mask" type="MeshInstance3D" parent="Pivot" unique_id=2142809709]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 mesh = SubResource("QuadMesh_uqips")
 
-[node name="Aread3D" type="Area3D" parent="Pivot/Mask" unique_id=1916572233]
+[node name="Aread3D" type="Area3D" parent="Pivot/Mask" unique_id=1771459797]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Mask/Aread3D" unique_id=2062871313]
 shape = SubResource("BoxShape3D_e1yvt")

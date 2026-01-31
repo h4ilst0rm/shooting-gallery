@@ -1,18 +1,32 @@
 class_name Target extends Marker3D
 
 @export var animation_player: AnimationPlayer
-@export var area3d: Area3D
 @export var timer: Timer
 
 enum State { Up, Down }
 
 @export var TargetState : State = State.Up
 
+const GREEN = preload("uid://wfrjmltrypda")
+const RED = preload("uid://blfjskh2at737")
+
+@onready var mask: MeshInstance3D = %Mask
+
+var my_mask : Mask = null
+
 signal hit
 
 func _ready() -> void:
 	
 	hit.connect(toggle_state)
+	
+	if randf() < 0.5:
+		my_mask = GREEN
+	else:
+		my_mask = RED
+	
+	var mat := mask.get_active_material(0) as StandardMaterial3D
+	mat.albedo_texture = my_mask.sprite
 	
 	pass
 
@@ -25,10 +39,13 @@ func toggle_state() -> void:
 	if TargetState == State.Up:
 		animation_player.play("fall")
 		TargetState = State.Down
-		area3d.monitorable = false
 		timer.start()
 	
 	pass
+	
+func get_points() -> int:
+	
+	return my_mask.points
 
 
 func _on_timer_timeout() -> void:
@@ -43,6 +60,5 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	
 	if anim_name == "rise":
 		TargetState = State.Up
-		area3d.monitorable = true
 	
 	pass # Replace with function body.

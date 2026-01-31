@@ -15,7 +15,7 @@ var points : int = 0
 func _ready() -> void:
 	
 	for path in targets.get_children():
-		for i in range(1, 5):
+		for i in range(0, 5):
 			var new_follow = path_follow.duplicate()
 			path.add_child(new_follow)
 			new_follow.progress_ratio = 0.2 * i
@@ -49,22 +49,28 @@ func _process(delta: float) -> void:
 		ray_query.collide_with_areas = true
 		var raycast_result := space.intersect_ray(ray_query)
 		if "collider" in raycast_result:
-			points += 1
+			print("hit")
 			var target = raycast_result["collider"].get_parent().get_parent().get_parent() as Target
 			if running and target:
-				target.hit.emit()
+				print("hit2")
+				if target.TargetState == Target.State.Up:
+					target.hit.emit()
+					points += target.get_points()
 				
 			target = raycast_result["collider"].get_parent().get_parent().get_parent() as Start
-			if target:
+			if not running and target:
 				target.hit.emit()
 				running = true
 				for entry in spotlights.get_children():
 					entry.show()
 		pass
-	if running:
-		for path in targets.get_children():
-			for entry in path.get_children():
-				(entry as PathFollow3D).progress_ratio += 0.1 * delta
+		
+	if running and false:
+		for entry in targets.get_children()[0].get_children():
+			(entry as PathFollow3D).progress_ratio += 0.1 * delta
+			
+		for entry in targets.get_children()[1].get_children():
+			(entry as PathFollow3D).progress_ratio += -0.2 * delta
 	
 	
 	

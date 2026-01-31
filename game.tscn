@@ -11,6 +11,8 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 0.9241667, 0.87, 1)
 ambient_light_energy = 0.2
 tonemap_mode = 2
+fog_enabled = true
+fog_light_energy = 0.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jnlp7"]
 albedo_texture = ExtResource("2_fc0e3")
@@ -93,10 +95,6 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9071345, 0, -3.3399076)
 curve = SubResource("Curve3D_feb5d")
 
-[node name="PathFollow" type="PathFollow3D" parent="Targets/Path1" unique_id=451732111]
-unique_name_in_owner = true
-rotation_mode = 0
-
 [node name="Path2" type="Path3D" parent="Targets" unique_id=1311096056]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9071345, 0.7005482, -5.7049804)
@@ -106,7 +104,7 @@ curve = SubResource("Curve3D_feb5d")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020914316, 0, -1.2647017)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=639272840]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.217203)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.010266066, -3.217203)
 material_override = SubResource("StandardMaterial3D_ryrav")
 mesh = SubResource("QuadMesh_eow3j")
 
@@ -129,3 +127,9 @@ transform = Transform3D(0.9874564, 0.012724005, 0.15737867, -0.07898992, 0.90285
 visible = false
 shadow_enabled = true
 spot_range = 300.0
+
+[node name="PathFollow" type="PathFollow3D" parent="." unique_id=451732111]
+unique_name_in_owner = true
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9071345, 0, -3.3399076)
+rotation_mode = 0
