@@ -22,13 +22,3 @@ func look_to(direction : Vector2) -> void:
 	eye.position = eye_original + Vector3(direction.x * factor, -direction.y * factor, 0)
 	laser.position = laser_original + Vector3(direction.x * factor * 2, -direction.y * factor * 2, 0)
 	pass
-
-func hide_bubble():
-	speech_bubble.hide()
-	label_3d.hide()
-	
-	
-func got_shot():
-	label_3d.text = "A Mistake..."
-	speech_bubble.show()
-	label_3d.show()

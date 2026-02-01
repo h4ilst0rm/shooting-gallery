@@ -93,6 +93,7 @@ mesh = SubResource("QuadMesh_0hx16")
 [node name="SpeechBubble" type="MeshInstance3D" parent="." unique_id=393016373]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0608978, 2.3666089, 0.047150373)
+visible = false
 mesh = SubResource("QuadMesh_56ikm")
 
 [node name="Label3D" type="Label3D" parent="SpeechBubble" unique_id=503523502]

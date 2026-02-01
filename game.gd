@@ -118,21 +118,18 @@ func _process(delta: float) -> void:
 				target.hit.emit()
 				SoundManager.play_music()
 				game_timer.start()
-				game_master.hide_bubble()
 				running = true
 				for entry in spotlights.get_children():
 					entry.show()
 			
 			target = raycast_result["collider"].get_parent().get_parent() as Gamemaster
 			if target:
-				game_master.got_shot()
 				loss = true
-
 
 func gameover() -> void:
 	const fade_time = 1.5
 	var tween = get_tree().create_tween()
-	tween.tween_property(game_over, "modulate:a", 1, fade_time)
+	tween.tween_property(game_over, "modulate:a", 1, 0.1)
 	for player in SoundManager.get_players():
 		tween.parallel().tween_property(player, "volume_linear", 0, fade_time)
 	tween.play()
@@ -144,7 +141,7 @@ func gameover() -> void:
 func win() -> void:
 	const fade_time = 1.5
 	var tween = get_tree().create_tween()
-	tween.tween_property(game_win, "modulate:a", 1, fade_time)
+	tween.tween_property(game_win, "modulate:a", 1, 0.1)
 	for player in SoundManager.get_players():
 		tween.parallel().tween_property(player, "volume_linear", 0, fade_time)
 	tween.play()
@@ -152,7 +149,6 @@ func win() -> void:
 	tween.kill()
 	retry.show()
 	pass
-
 
 func _on_retry_pressed() -> void:
 	print("press")
@@ -167,7 +163,6 @@ func _on_game_timer_timeout() -> void:
 		loss = true
 	
 	pass # Replace with function body.
-
 
 func _on_shot_timer_timeout() -> void:
 	print("shot timeout")
