@@ -1,9 +1,9 @@
 extends Node3D
 
 @onready var crosshair: Sprite2D = %Crosshair
-@onready var point_label: Label = %Points
+@onready var point_label: Label3D = %Points
 @onready var camera_3d: Camera3D = $Camera3D
-@onready var time_label: Label = %Time
+@onready var time_label: Label3D = %Time
 
 const TARGET = preload("uid://c6tt5ahixx0yr")
 @onready var targets: Node = %Targets
@@ -16,7 +16,7 @@ const TARGET = preload("uid://c6tt5ahixx0yr")
 var game_master : Gamemaster = null
 const GAMEMASTER = preload("uid://bqkkvvqmp37r1")
 
-var warmup : bool = true
+
 var running : bool = false
 var points : int = 0
 const points_needed : int = 30
@@ -25,6 +25,8 @@ var can_shoot = true
 var loss = false
 @onready var game_over: TextureRect = %GameOver
 @onready var retry: Button = %Retry
+
+var delayed_mouse : Vector2
 
 func _ready() -> void:
 	
@@ -55,6 +57,11 @@ func _process(delta: float) -> void:
 	
 	crosshair.position = mouse_pos
 	
+	delayed_mouse = delayed_mouse.move_toward(mouse_pos, 40)
+	var eye = game_master.get_eye_pos()
+	var on_screen = camera_3d.unproject_position(eye)
+	game_master.look_to(on_screen.direction_to(delayed_mouse))
+	
 	point_label.text = "points: " + str(points)
 	time_label.text = "time: " + str(time)
 	
@@ -77,7 +84,7 @@ func _process(delta: float) -> void:
 	if not can_shoot:
 		return
 	
-	if Input.is_action_just_pressed("shoot") or warmup:
+	if Input.is_action_just_pressed("shoot"):
 		var ray_length = 20
 		var from = camera_3d.project_ray_origin(mouse_pos)
 		var to = from + camera_3d.project_ray_normal(mouse_pos) * ray_length
@@ -88,19 +95,13 @@ func _process(delta: float) -> void:
 		ray_query.collide_with_areas = true
 		var raycast_result := space.intersect_ray(ray_query)
 		
-		if warmup:
-			warmup = false
-			return
-		
 		SoundManager.play_shot()
 		can_shoot = false
 		shot_timer.start()
 		
 		if "collider" in raycast_result:
-			print("hit")
 			var target = raycast_result["collider"].get_parent().get_parent().get_parent() as Target
 			if running and target:
-				print("hit2")
 				if target.TargetState == Target.State.Up:
 					target.hit.emit()
 					points += target.get_points()
@@ -117,6 +118,7 @@ func _process(delta: float) -> void:
 			
 			target = raycast_result["collider"].get_parent().get_parent() as Gamemaster
 			if target:
+				game_master.got_shot()
 				loss = true
 
 

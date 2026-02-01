@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://d31p6kcou6pyh"]
 
 [ext_resource type="Script" uid="uid://dabt7se0jqi2p" path="res://game.gd" id="1_feb5d"]
-[ext_resource type="Texture2D" uid="uid://drircdhf31mco" path="res://textures/005.png" id="2_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://dfmwcjxfl7yvn" path="res://textures/floor.PNG" id="2_hve3p"]
 [ext_resource type="Texture2D" uid="uid://dls3q2prkrpqm" path="res://textures/tent_bg.png" id="3_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://53ahvui1nriw" path="res://textures/game over.png" id="4_eow3j"]
 [ext_resource type="PackedScene" uid="uid://c2b47io4sp4m3" path="res://start.tscn" id="4_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://c67y6deyifjaf" path="res://textures/Shooting_Target.png" id="4_j5wjh"]
-[ext_resource type="Texture2D" uid="uid://b4wu5m37dmiai" path="res://textures/038.png" id="5_7jktm"]
+[ext_resource type="Texture2D" uid="uid://bui17xl62n6sq" path="res://textures/Planks.png" id="9_vef74"]
 
 [sub_resource type="Environment" id="Environment_28aoi"]
 ambient_light_source = 2
@@ -16,8 +16,8 @@ tonemap_mode = 2
 fog_enabled = true
 fog_light_energy = 0.2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eow3j"]
-albedo_texture = ExtResource("2_fc0e3")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfdv2"]
+albedo_texture = ExtResource("2_hve3p")
 
 [sub_resource type="QuadMesh" id="QuadMesh_l8v81"]
 size = Vector2(8, 10)
@@ -33,9 +33,6 @@ top_radius = 4.0
 bottom_radius = 5.0
 height = 10.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_fc0e3"]
-font_size = 32
-
 [sub_resource type="Curve3D" id="Curve3D_feb5d"]
 bake_interval = 0.05
 _data = {
@@ -44,11 +41,22 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryrav"]
-albedo_texture = ExtResource("5_7jktm")
-uv1_scale = Vector3(10, 1, 10)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5wjh"]
+albedo_texture = ExtResource("9_vef74")
+uv1_scale = Vector3(5, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_eow3j"]
+size = Vector2(10, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vef74"]
+albedo_texture = ExtResource("9_vef74")
+uv1_scale = Vector3(5, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iotsf"]
+albedo_texture = ExtResource("9_vef74")
+uv1_scale = Vector3(5, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_vef74"]
 size = Vector2(4, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_ryrav"]
@@ -64,7 +72,7 @@ environment = SubResource("Environment_28aoi")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=67333478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045278072, -4.9136133)
-material_override = SubResource("StandardMaterial3D_eow3j")
+material_override = SubResource("StandardMaterial3D_mfdv2")
 mesh = SubResource("QuadMesh_l8v81")
 
 [node name="Wall" type="MeshInstance3D" parent="." unique_id=495110568]
@@ -76,25 +84,8 @@ mesh = SubResource("CylinderMesh_1pm2o")
 
 [node name="Crosshair" type="Sprite2D" parent="CanvasLayer" unique_id=116043004]
 unique_name_in_owner = true
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("4_j5wjh")
-
-[node name="Points" type="Label" parent="CanvasLayer" unique_id=1860501952]
-unique_name_in_owner = true
-offset_left = 13.0
-offset_top = 11.0
-offset_right = 53.0
-offset_bottom = 34.0
-text = "points: xxx"
-label_settings = SubResource("LabelSettings_fc0e3")
-
-[node name="Time" type="Label" parent="CanvasLayer" unique_id=1612428961]
-unique_name_in_owner = true
-offset_left = 13.0
-offset_top = 60.0
-offset_right = 180.0
-offset_bottom = 105.0
-text = "time: xxx"
-label_settings = SubResource("LabelSettings_fc0e3")
 
 [node name="GameOver" type="TextureRect" parent="CanvasLayer" unique_id=259794098]
 unique_name_in_owner = true
@@ -144,18 +135,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020914316, 0, -0.7439245)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=639272840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.010266066, -3.217203)
-material_override = SubResource("StandardMaterial3D_ryrav")
+material_override = SubResource("StandardMaterial3D_j5wjh")
 mesh = SubResource("QuadMesh_eow3j")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1472693076]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35831642, -5.6010303)
-material_override = SubResource("StandardMaterial3D_ryrav")
+material_override = SubResource("StandardMaterial3D_vef74")
 mesh = SubResource("QuadMesh_eow3j")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=865332269]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 0.8395717, -0.03615901)
-material_override = SubResource("StandardMaterial3D_ryrav")
-mesh = SubResource("QuadMesh_eow3j")
+material_override = SubResource("StandardMaterial3D_iotsf")
+mesh = SubResource("QuadMesh_vef74")
+
+[node name="Points" type="Label3D" parent="MeshInstance3D3" unique_id=1517027375]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.99999976, -3.5527137e-15, 0, 3.5527137e-15, 0.99999976, 0.6, 0.29999998, 0.017608047)
+text = "points: xxx"
+
+[node name="Time" type="Label3D" parent="MeshInstance3D3" unique_id=345355298]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.9999998, -3.5527137e-15, 0, 3.5527137e-15, 0.9999998, -0.6, 0.29999998, 0.017235756)
+text = "Time: xxx"
 
 [node name="Spotlights" type="Node" parent="." unique_id=114093133]
 unique_name_in_owner = true
