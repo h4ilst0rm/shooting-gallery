@@ -16,6 +16,9 @@ const TARGET = preload("uid://c6tt5ahixx0yr")
 var game_master : Gamemaster = null
 const GAMEMASTER = preload("uid://bqkkvvqmp37r1")
 
+@onready var game_win: TextureRect = %GameWin
+@onready var game_over: TextureRect = %GameOver
+
 
 var running : bool = false
 var points : int = 0
@@ -23,7 +26,6 @@ const points_needed : int = 30
 var time : int = 30
 var can_shoot = true
 var loss = false
-@onready var game_over: TextureRect = %GameOver
 @onready var retry: Button = %Retry
 
 var delayed_mouse : Vector2
@@ -64,6 +66,11 @@ func _process(delta: float) -> void:
 	
 	point_label.text = "points: " + str(points)
 	time_label.text = "time: " + str(time)
+	
+	if points >= points_needed:
+		win()
+		process_mode = Node.PROCESS_MODE_DISABLED
+		return
 	
 	if loss:
 		gameover()
@@ -133,6 +140,19 @@ func gameover() -> void:
 	tween.kill()
 	retry.show()
 	pass
+
+func win() -> void:
+	const fade_time = 1.5
+	var tween = get_tree().create_tween()
+	tween.tween_property(game_win, "modulate:a", 1, fade_time)
+	for player in SoundManager.get_players():
+		tween.parallel().tween_property(player, "volume_linear", 0, fade_time)
+	tween.play()
+	await tween.finished
+	tween.kill()
+	retry.show()
+	pass
+
 
 func _on_retry_pressed() -> void:
 	print("press")

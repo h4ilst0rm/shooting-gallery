@@ -1,13 +1,17 @@
 [gd_scene format=3 uid="uid://c2b47io4sp4m3"]
 
-[ext_resource type="Script" uid="uid://bjl6s5ocihw07" path="res://start.gd" id="1_qn1rc"]
-[ext_resource type="Texture2D" uid="uid://brqssfr4pjvhs" path="res://textures/035.png" id="2_1n0d2"]
+[ext_resource type="Script" path="res://start.gd" id="1_qn1rc"]
+[ext_resource type="Texture2D" uid="uid://b44vywdso7jfp" path="res://textures/DarkWood.jpg" id="2_qn1rc"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ebp1"]
-albedo_texture = ExtResource("2_1n0d2")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1n0d2"]
+albedo_texture = ExtResource("2_qn1rc")
+uv1_scale = Vector3(0.3, 2, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_7jktm"]
 size = Vector2(0.2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y5hus"]
+albedo_texture = ExtResource("2_qn1rc")
 
 [sub_resource type="QuadMesh" id="QuadMesh_uqips"]
 size = Vector2(0.5, 0.5)
@@ -78,11 +82,12 @@ light = NodePath("Light")
 
 [node name="Board" type="MeshInstance3D" parent="Pivot" unique_id=371705131]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-material_override = SubResource("StandardMaterial3D_5ebp1")
+material_override = SubResource("StandardMaterial3D_1n0d2")
 mesh = SubResource("QuadMesh_7jktm")
 
 [node name="Mask" type="MeshInstance3D" parent="Pivot" unique_id=2142809709]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+material_override = SubResource("StandardMaterial3D_y5hus")
 mesh = SubResource("QuadMesh_uqips")
 
 [node name="Aread3D" type="Area3D" parent="Pivot/Mask" unique_id=1916572233]

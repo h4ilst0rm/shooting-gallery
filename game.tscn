@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://dabt7se0jqi2p" path="res://game.gd" id="1_feb5d"]
 [ext_resource type="Texture2D" uid="uid://dfmwcjxfl7yvn" path="res://textures/floor.PNG" id="2_hve3p"]
 [ext_resource type="Texture2D" uid="uid://dls3q2prkrpqm" path="res://textures/tent_bg.png" id="3_fc0e3"]
-[ext_resource type="Texture2D" uid="uid://53ahvui1nriw" path="res://textures/game over.png" id="4_eow3j"]
 [ext_resource type="PackedScene" uid="uid://c2b47io4sp4m3" path="res://start.tscn" id="4_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://c67y6deyifjaf" path="res://textures/Shooting_Target.png" id="4_j5wjh"]
+[ext_resource type="Texture2D" uid="uid://ck7lij5uj4d0p" path="res://Game_Over.png" id="5_eow3j"]
+[ext_resource type="Texture2D" uid="uid://clpxbxlib7aj3" path="res://Good_Show.png" id="6_j5wjh"]
 [ext_resource type="Texture2D" uid="uid://bui17xl62n6sq" path="res://textures/Planks.png" id="9_vef74"]
 
 [sub_resource type="Environment" id="Environment_28aoi"]
@@ -95,7 +96,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_eow3j")
+texture = ExtResource("5_eow3j")
+
+[node name="GameWin" type="TextureRect" parent="CanvasLayer" unique_id=1876038807]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_j5wjh")
 
 [node name="Retry" type="Button" parent="CanvasLayer" unique_id=540428231]
 unique_name_in_owner = true
