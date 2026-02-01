@@ -12,6 +12,9 @@ const TARGET = preload("uid://c6tt5ahixx0yr")
 
 @onready var game_timer: Timer = %GameTimer
 @onready var shot_timer: Timer = %ShotTimer
+@onready var dude: PathFollow3D = %Dude
+var game_master : Gamemaster = null
+const GAMEMASTER = preload("uid://bqkkvvqmp37r1")
 
 var warmup : bool = true
 var running : bool = false
@@ -26,6 +29,8 @@ var loss = false
 func _ready() -> void:
 	
 	SoundManager.init()
+	game_master = GAMEMASTER.instantiate()
+	dude.add_child(game_master)
 	
 	for path in targets.get_children():
 		for i in range(0, 5):
@@ -61,9 +66,13 @@ func _process(delta: float) -> void:
 	if running:
 		for entry in targets.get_children()[0].get_children():
 			(entry as PathFollow3D).progress_ratio += 0.1 * delta
+			if (entry as PathFollow3D).progress_ratio - 0.01 < 0:
+				(entry.get_child(0) as Target).random_mask()
 			
 		for entry in targets.get_children()[1].get_children():
 			(entry as PathFollow3D).progress_ratio += -0.2 * delta
+			if (entry as PathFollow3D).progress_ratio - 0.01 < 0:
+				(entry.get_child(0) as Target).random_mask()
 	
 	if not can_shoot:
 		return
@@ -101,6 +110,7 @@ func _process(delta: float) -> void:
 				target.hit.emit()
 				SoundManager.play_music()
 				game_timer.start()
+				game_master.hide_bubble()
 				running = true
 				for entry in spotlights.get_children():
 					entry.show()

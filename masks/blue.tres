@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Mask" format=3 uid="uid://bn57os6kngow1"]
+
+[ext_resource type="Script" uid="uid://b30dfi5p06e2a" path="res://masks/mask.gd" id="1_8a8ar"]
+[ext_resource type="Texture2D" uid="uid://dc7n1htq4jvcw" path="res://masks/pics/Mask_(blue).png" id="2_8a8ar"]
+
+[resource]
+script = ExtResource("1_8a8ar")
+points = 2
+sprite = ExtResource("2_8a8ar")
+metadata/_custom_type_script = "uid://b30dfi5p06e2a"

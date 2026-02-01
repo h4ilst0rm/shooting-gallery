@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://dls3q2prkrpqm" path="res://textures/tent_bg.png" id="3_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://53ahvui1nriw" path="res://textures/game over.png" id="4_eow3j"]
 [ext_resource type="PackedScene" uid="uid://c2b47io4sp4m3" path="res://start.tscn" id="4_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://c67y6deyifjaf" path="res://textures/Shooting_Target.png" id="4_j5wjh"]
 [ext_resource type="Texture2D" uid="uid://b4wu5m37dmiai" path="res://textures/038.png" id="5_7jktm"]
-[ext_resource type="PackedScene" uid="uid://bqkkvvqmp37r1" path="res://gamemaster.tscn" id="7_eow3j"]
 
 [sub_resource type="Environment" id="Environment_28aoi"]
 ambient_light_source = 2
@@ -16,9 +16,8 @@ tonemap_mode = 2
 fog_enabled = true
 fog_light_energy = 0.2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jnlp7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eow3j"]
 albedo_texture = ExtResource("2_fc0e3")
-uv1_scale = Vector3(3, 3, 3)
 
 [sub_resource type="QuadMesh" id="QuadMesh_l8v81"]
 size = Vector2(8, 10)
@@ -33,9 +32,6 @@ flip_faces = true
 top_radius = 4.0
 bottom_radius = 5.0
 height = 10.0
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pyidc"]
-size = Vector2(32, 32)
 
 [sub_resource type="LabelSettings" id="LabelSettings_fc0e3"]
 font_size = 32
@@ -53,7 +49,9 @@ albedo_texture = ExtResource("5_7jktm")
 uv1_scale = Vector3(10, 1, 10)
 
 [sub_resource type="QuadMesh" id="QuadMesh_eow3j"]
-size = Vector2(10, 1)
+size = Vector2(4, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_ryrav"]
 
 [node name="Game" type="Node3D" unique_id=1390001103]
 script = ExtResource("1_feb5d")
@@ -66,7 +64,7 @@ environment = SubResource("Environment_28aoi")
 
 [node name="Floor" type="MeshInstance3D" parent="." unique_id=67333478]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.045278072, -4.9136133)
-material_override = SubResource("StandardMaterial3D_jnlp7")
+material_override = SubResource("StandardMaterial3D_eow3j")
 mesh = SubResource("QuadMesh_l8v81")
 
 [node name="Wall" type="MeshInstance3D" parent="." unique_id=495110568]
@@ -78,7 +76,7 @@ mesh = SubResource("CylinderMesh_1pm2o")
 
 [node name="Crosshair" type="Sprite2D" parent="CanvasLayer" unique_id=116043004]
 unique_name_in_owner = true
-texture = SubResource("PlaceholderTexture2D_pyidc")
+texture = ExtResource("4_j5wjh")
 
 [node name="Points" type="Label" parent="CanvasLayer" unique_id=1860501952]
 unique_name_in_owner = true
@@ -133,7 +131,7 @@ unique_name_in_owner = true
 
 [node name="Path1" type="Path3D" parent="Targets" unique_id=374568935]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9071345, 0, -3.3399076)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9071345, 0.1753056, -3.3399076)
 curve = SubResource("Curve3D_feb5d")
 
 [node name="Path2" type="Path3D" parent="Targets" unique_id=1311096056]
@@ -151,6 +149,11 @@ mesh = SubResource("QuadMesh_eow3j")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1472693076]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35831642, -5.6010303)
+material_override = SubResource("StandardMaterial3D_ryrav")
+mesh = SubResource("QuadMesh_eow3j")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=865332269]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 0.8395717, -0.03615901)
 material_override = SubResource("StandardMaterial3D_ryrav")
 mesh = SubResource("QuadMesh_eow3j")
 
@@ -178,10 +181,15 @@ unique_name_in_owner = true
 
 [node name="ShotTimer" type="Timer" parent="." unique_id=1984150182]
 unique_name_in_owner = true
+wait_time = 0.6
 one_shot = true
 
-[node name="Gamemaster" parent="." unique_id=1516307902 instance=ExtResource("7_eow3j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.241064, 0, -2.3421516)
+[node name="Path3D" type="Path3D" parent="." unique_id=501976133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3258489, -2.3841858e-07, -1.169136)
+curve = SubResource("Curve3D_ryrav")
+
+[node name="Dude" type="PathFollow3D" parent="Path3D" unique_id=533905690]
+unique_name_in_owner = true
 
 [connection signal="pressed" from="CanvasLayer/Retry" to="." method="_on_retry_pressed"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

@@ -7,8 +7,13 @@ enum State { Up, Down }
 
 @export var TargetState : State = State.Up
 
+const BLUE = preload("uid://bn57os6kngow1")
 const GREEN = preload("uid://wfrjmltrypda")
+const PURPLE = preload("uid://da45gjopu63yo")
 const RED = preload("uid://blfjskh2at737")
+const YELLOW = preload("uid://xymiwppsvpy7")
+
+var masks = [BLUE, GREEN, PURPLE, RED]
 
 @onready var mask: MeshInstance3D = %Mask
 
@@ -19,19 +24,22 @@ signal hit
 func _ready() -> void:
 	
 	hit.connect(toggle_state)
-	
-	if randf() < 0.5:
-		my_mask = GREEN
-	else:
-		my_mask = RED
-	
-	var mat := mask.get_active_material(0) as StandardMaterial3D
-	mat.albedo_texture = my_mask.sprite
+	random_mask()
 	
 	pass
 
 func _process(delta: float) -> void:
 	
+	pass
+
+func random_mask() -> void:
+	my_mask = masks.pick_random()
+	
+	if randf() < 0.1:
+		my_mask = YELLOW
+	
+	var mat := mask.get_active_material(0) as StandardMaterial3D
+	mat.albedo_texture = my_mask.sprite
 	pass
 
 func toggle_state() -> void:
