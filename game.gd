@@ -13,6 +13,7 @@ const TARGET = preload("uid://c6tt5ahixx0yr")
 @onready var game_timer: Timer = %GameTimer
 @onready var shot_timer: Timer = %ShotTimer
 
+var warmup : bool = true
 var running : bool = false
 var points : int = 0
 const points_needed : int = 30
@@ -37,13 +38,16 @@ func _ready() -> void:
 			var new_target = TARGET.instantiate()
 			entry.add_child(new_target)
 	
+	for entry in spotlights.get_children():
+		entry.show()
+		entry.hide.call_deferred()
 	pass
 
 
 func _process(delta: float) -> void:
 	
 	var mouse_pos = get_viewport().get_mouse_position()
-		
+	
 	crosshair.position = mouse_pos
 	
 	point_label.text = "points: " + str(points)
@@ -64,9 +68,8 @@ func _process(delta: float) -> void:
 	if not can_shoot:
 		return
 	
-	if Input.is_action_just_pressed("shoot"):
-		print("shot " + str(mouse_pos))
-		var ray_length = 100
+	if Input.is_action_just_pressed("shoot") or warmup:
+		var ray_length = 20
 		var from = camera_3d.project_ray_origin(mouse_pos)
 		var to = from + camera_3d.project_ray_normal(mouse_pos) * ray_length
 		var space = get_world_3d().direct_space_state
@@ -75,6 +78,10 @@ func _process(delta: float) -> void:
 		ray_query.to = to
 		ray_query.collide_with_areas = true
 		var raycast_result := space.intersect_ray(ray_query)
+		
+		if warmup:
+			warmup = false
+			return
 		
 		SoundManager.play_shot()
 		can_shoot = false
@@ -104,9 +111,11 @@ func _process(delta: float) -> void:
 
 
 func gameover() -> void:
-	SoundManager.stop()
+	const fade_time = 1.5
 	var tween = get_tree().create_tween()
-	tween.tween_property(game_over, "modulate:a", 1, 2)
+	tween.tween_property(game_over, "modulate:a", 1, fade_time)
+	for player in SoundManager.get_players():
+		tween.parallel().tween_property(player, "volume_linear", 0, fade_time)
 	tween.play()
 	await tween.finished
 	tween.kill()

@@ -23,9 +23,9 @@ func init():
 	for key in sounds.keys():
 		var player = AudioStreamPlayer.new()
 		add_child(player)
-		player.bus = "master"
 		player.volume_linear = sounds[key]
 		players[key] = player
+
 
 
 func play_music():
@@ -46,11 +46,6 @@ func play_clock():
 	players["clock"].stream = CLOCK_1
 	players["clock"].play()
 	
-func stop() -> void:
-	for key in players.keys():
-		var tween = get_tree().create_tween()
-		tween.tween_property(players[key], "volume_linear", 0, 2)
-		tween.play()
-		
-	pass
+func get_players() -> Array[AudioStreamPlayer]:
+	return players.values()
 	

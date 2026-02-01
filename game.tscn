@@ -142,7 +142,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9071345, 0.7005482, -5.704
 curve = SubResource("Curve3D_feb5d")
 
 [node name="Start" parent="." unique_id=931664174 instance=ExtResource("4_fc0e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020914316, 0, -1.2647017)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020914316, 0, -0.7439245)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=639272840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.010266066, -3.217203)
