@@ -127,6 +127,7 @@ func _process(delta: float) -> void:
 				loss = true
 
 func gameover() -> void:
+	SoundManager.play_loss()
 	const fade_time = 1.5
 	var tween = get_tree().create_tween()
 	tween.tween_property(game_over, "modulate:a", 1, 0.1)
@@ -139,6 +140,7 @@ func gameover() -> void:
 	pass
 
 func win() -> void:
+	SoundManager.play_win()
 	const fade_time = 1.5
 	var tween = get_tree().create_tween()
 	tween.tween_property(game_win, "modulate:a", 1, 0.1)

@@ -161,13 +161,21 @@ mesh = SubResource("QuadMesh_vef74")
 
 [node name="Points" type="Label3D" parent="MeshInstance3D3" unique_id=1517027375]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.99999976, -3.5527137e-15, 0, 3.5527137e-15, 0.99999976, 0.6, 0.29999998, 0.017608047)
+transform = Transform3D(1, 0, 0, 0, 0.9999997, -3.5527137e-15, 0, 3.5527137e-15, 0.9999997, 0.6, 0.15, 0.018)
 text = "points: xxx"
+
+[node name="Points2" type="Label3D" parent="MeshInstance3D3" unique_id=2111487898]
+transform = Transform3D(1, 0, 0, 0, 0.99999964, -7.1054274e-15, 0, 7.1054274e-15, 0.99999964, 0.6, 0.35, 0.018)
+text = "30 points"
 
 [node name="Time" type="Label3D" parent="MeshInstance3D3" unique_id=345355298]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0.9999998, -3.5527137e-15, 0, 3.5527137e-15, 0.9999998, -0.6, 0.29999998, 0.017235756)
+transform = Transform3D(1, 0, 0, 0, 0.99999976, -3.5527137e-15, 0, 3.5527137e-15, 0.99999976, -0.6, 0.15021038, 0.017235756)
 text = "Time: xxx"
+
+[node name="Time2" type="Label3D" parent="MeshInstance3D3" unique_id=1175252275]
+transform = Transform3D(1, 0, 0, 0, 0.9999997, -3.5527137e-15, 0, 3.5527137e-15, 0.9999997, -0.6, 0.35, 0.017)
+text = "30 seconds"
 
 [node name="Spotlights" type="Node" parent="." unique_id=114093133]
 unique_name_in_owner = true
@@ -197,7 +205,7 @@ wait_time = 0.6
 one_shot = true
 
 [node name="Path3D" type="Path3D" parent="." unique_id=501976133]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3258489, -2.3841858e-07, -1.169136)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6758372, -2.3841858e-07, -1.4576628)
 curve = SubResource("Curve3D_ryrav")
 
 [node name="Dude" type="PathFollow3D" parent="Path3D" unique_id=533905690]
