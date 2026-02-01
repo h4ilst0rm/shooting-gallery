@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="ShootingGallery"
+config/name="The Midway"
 run/main_scene="uid://d31p6kcou6pyh"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://7gqgpxm24bkr"
 
 [autoload]
 
@@ -41,3 +41,4 @@ shoot={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
